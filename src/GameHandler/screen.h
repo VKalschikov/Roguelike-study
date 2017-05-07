@@ -9,12 +9,11 @@
 
 typedef struct{
 	Controller *controller;
-	ScreenInfo *screenInfo;
 } Screen;
 
-Screen *createScreen(ScreenInfo *si);
+Screen *createScreen();
 void s_initialize(Screen *screen, GameObject *gameObjects, GUIObject *guiObjects);
-void s_update(Screen *screen, GameObject *gameObjects, GUIObject *guiObjects);
+int s_update(Screen *screen, GameObject *gameObjects, GUIObject *guiObjects);
 void s_destroy(Screen *screen);
 
 #endif 

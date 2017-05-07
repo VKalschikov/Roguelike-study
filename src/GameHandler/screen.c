@@ -7,21 +7,17 @@
 Screen *createScreen(ScreenInfo *si)
 {
 	Screen *screen = (Screen*)malloc(sizeof(Screen));
-	screen->screenInfo = si;
+	screen->controller = createController(si);
 	return screen;
 }
 
 void s_initialize(Screen *screen, GameObject *gameObjects, GUIObject *guiObjects)
 {
-	screen -> controller = createController(
-							screen->si->update,
-							gameObjects,
-							guiObjects
-							);
+	c_initialize(screen->controller, gameObjects, guiObjects);
 }
-void s_update(Screen *screen, GameObject *gameObjects, GUIObject *guiObjects)
+int s_update(Screen *screen, GameObject *gameObjects, GUIObject *guiObjects)
 {
-	c_update(scren->controller, gameObjects, guiObjects);
+	return c_update(scren->controller, gameObjects, guiObjects);
 }
 void s_destroy(Screen *screen)
 {

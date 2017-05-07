@@ -12,7 +12,7 @@ typedef struct{
 } GameHandler;
 
 GameHandler *createGameHandler(int numbersOfScreens, int currentScreen, GameObjectsInfo *goinfo);
-void gh_gameCycle(GameHandler *gh);
+void gh_gameCycle(GameHandler *gh, GameObjectsInfo *goinfo);
 void gh_refreshCurrentScreen(GameHandler *gh);
 void gh_changeCurrentScreen(GameHandler *gh, int screen);
 void gh_changeCurrentScreenR(GameHandler *gh, int screen);

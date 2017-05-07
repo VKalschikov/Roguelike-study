@@ -5,12 +5,14 @@
 #include "../GameObjects/guiobject.h"
 
 typedef struct{
-	void (*update)(GameObject *gameObjects, GUIObject *guiObjects);
+	ScreenInfo *screeninfo;
 } Controller;
 
-Controller *createController(void (*func)(GameObject *gameObjects, GUIObject *guiObjects));
+Controller *createController(ScreenInfo *si);
 
-void c_update(Controller *controller, GameObject *gameObjects, GUIObject *guiObjects);
+void c_initialize(Controller *controller, GameObject *gameObjects, GUIObject *guiObjects);
+
+int c_update(Controller *controller, GameObject *gameObjects, GUIObject *guiObjects);
 
 void c_destroy(Controller *controller);
 
