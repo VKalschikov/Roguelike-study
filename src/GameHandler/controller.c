@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "controller.h"
-#include "screenInfo"
+#include "screeninfo.h"
 
 Controller *createController(ScreenInfo *si)
 {
@@ -9,14 +9,22 @@ Controller *createController(ScreenInfo *si)
 	return cont;
 }
 
-void c_initialize(Controller *controller, GameObject *gameObjects, GUIObject *guiObjects)
+void c_initialize(
+	Controller *controller,
+	GameObjectsVector *staticGameObjects,
+	GameObjectsVector *dynamicGameObjects,
+	GUIObjectsVector *guiObjects)
 {
-	si_initialize(controller->si, gameObjects, guiObjects);
+	si_initialize(controller->screenInfo, staticGameObjects, dynamicGameObjects, guiObjects);
 }
 
-int c_update(Controller *controller, GameObject *gameObjects, GUIObject *guiObjects)
+int c_update(
+	Controller *controller,
+	GameObjectsVector *staticGameObjects,
+	GameObjectsVector *dynamicGameObjects,
+	GUIObjectsVector *guiObjects)
 {
-	return si_update(si, gameObjects, guiObjects);
+	return si_update(controller->screenInfo, staticGameObjects, dynamicGameObjects, guiObjects);
 }
 
 void c_destroy(Controller *controller)

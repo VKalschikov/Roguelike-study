@@ -8,7 +8,7 @@ typedef struct{
 	int posY;
 } GUIObject;
 
-GUIObject *createGUIObject();
+GUIObject *createGUIObject(char *type, int numberOfObjectOnScreen, int posX, int posY);
 void guio_destroy(GUIObject *guio);
 
 #endif
