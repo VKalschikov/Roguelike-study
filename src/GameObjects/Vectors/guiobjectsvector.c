@@ -5,7 +5,7 @@
 
 #define STD_AMOUNT_OF_GUIOBJECTS 40
 
-GUIObjectsVector *creatGUIObjectsVector()
+GUIObjectsVector *createGUIObjectsVector()
 {
 	GUIObjectsVector *guiov = (GUIObjectsVector*)malloc(sizeof(GUIObjectsVector));
 	guiov->maxAmount = STD_AMOUNT_OF_GUIOBJECTS;

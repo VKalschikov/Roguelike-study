@@ -6,7 +6,7 @@
 #define STD_AMOUNT_OF_GOBJECTS 40
 
 
-GameObjectsVector *creatGameObjectsVector()
+GameObjectsVector *createGameObjectsVector()
 {
 	GameObjectsVector *gov = (GameObjectsVector*)malloc(sizeof(GameObjectsVector));
 	gov->maxAmount = STD_AMOUNT_OF_GOBJECTS ;

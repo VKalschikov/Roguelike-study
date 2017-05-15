@@ -1,14 +1,14 @@
 #include "gameobject.h"
-#include "value.h"
+#include "Vectors/valuesvector.h"
 #include <stdlib.h>
 #include <string.h>
 
-GameObject *createGameObject(char *type, int number, Value **values, int xPos, int yPos)
+GameObject *createGameObject(char *type, int number, ValuesVector *values, int xPos, int yPos)
 {
 	GameObject *go = (GameObject*)malloc(sizeof(GameObject));
 	go->typeOfObject = type;
 	go->numberOfValues = number;
-	go->values = values;
+	go->valuesVector = values;
 	go->xPos = xPos;
 	go->yPos = yPos;
 	return go;
@@ -16,32 +16,21 @@ GameObject *createGameObject(char *type, int number, Value **values, int xPos, i
 
 void go_setValue(GameObject *go, const char *name, int value)
 {
-	for(int i=0;i<go->numberOfValues;i++)
-	{
-		if(!strcmp(go->values[i]->nameOfValue, name))
-		{
-			go->values[i]->value=value;
-		}
-	}
+	Value *temp =  vv_getByName(go->valuesVector, name);
+	if(temp!=NULL)
+		temp->value = value;
 }
-int go_getValue(GameObject *go, const char *name, int value)
+int go_getValue(GameObject *go, const char *name)
 {
-	for(int i=0;i<go->numberOfValues;i++)
-	{
-		if(!strcmp(go->values[i]->nameOfValue, name))
-		{
-			return go->values[i]->value;
-		}
-	}
-	return -1;
+	Value *temp =  vv_getByName(go->valuesVector, name);
+	if(temp!=NULL)
+		return temp->value;
+	return 0;
 }
 
 void go_destroy(GameObject *go)
 {
 	free(go->typeOfObject);
-	free(go->values);
-	for(int i=0;i< go->numberOfValues; i++)
-		free(go->values[i]);
-	free(go->values);
+	vv_destroy(go->valuesVector);
 	free(go);
 }	

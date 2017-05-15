@@ -9,7 +9,7 @@ typedef struct{
 	GameObject **gameObjects;
 } GameObjectsVector;
 
-GameObjectsVector *creatGameObjectsVector();
+GameObjectsVector *createGameObjectsVector();
 
 void gov_add(GameObjectsVector *gov, GameObject *go);
 void gov_removeI(GameObjectsVector *gov, int index);

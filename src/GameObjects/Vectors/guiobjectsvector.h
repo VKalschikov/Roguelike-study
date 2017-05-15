@@ -9,7 +9,7 @@ typedef struct{
 	GUIObject **guiObjects;
 } GUIObjectsVector;
 
-GUIObjectsVector *creatGUIObjectsVector();
+GUIObjectsVector *createGUIObjectsVector();
 
 void guiov_add(GUIObjectsVector *guiov, GUIObject *go);
 void guiov_removeI(GUIObjectsVector *guiov, int index);
