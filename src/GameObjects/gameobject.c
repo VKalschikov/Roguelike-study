@@ -14,13 +14,13 @@ GameObject *createGameObject(char *type, int number, ValuesVector *values, int x
 	return go;
 }
 
-void go_setValue(GameObject *go, const char *name, int value)
+void go_setValue(GameObject *go, ValueName name, int value)
 {
 	Value *temp =  vv_getByName(go->valuesVector, name);
 	if(temp!=NULL)
 		temp->value = value;
 }
-int go_getValue(GameObject *go, const char *name)
+int go_getValue(GameObject *go, ValueName name)
 {
 	Value *temp =  vv_getByName(go->valuesVector, name);
 	if(temp!=NULL)

@@ -1,8 +1,9 @@
 #include <stdlib.h>
 
 #include "value.h"
+#include "Enums/valuesenum.h"
 
-Value *createValue(int value, const char *nameOfValue)
+Value *createValue(int value, ValueName nameOfValue)
 {
 	Value *v = (Value*)malloc(sizeof(Value));
 	v->value = value;

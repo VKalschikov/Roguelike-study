@@ -1,7 +1,7 @@
 #include <stdlib.h>
-#include <string.h>
 
 #include "valuesvector.h"
+#include "../Enums/valuesenum.h"
 #include "../value.h"
 
 #define STD_AMOUNT_OF_VALUES 40
@@ -90,11 +90,11 @@ Value *vv_get(ValuesVector *vv, int index)
 	return vv->values[index];
 }
 
-Value *vv_getByName(ValuesVector *vv, const char *name)
+Value *vv_getByName(ValuesVector *vv, ValueName name)
 {
 	for(int i=0;i<vv->currentAmount;i++)
 	{
-		if(!strcmp(vv->values[i]->nameOfValue, name))
+		if(name == vv->values[i]->nameOfValue)
 		{
 			return vv->values[i];
 		}
