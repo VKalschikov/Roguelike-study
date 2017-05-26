@@ -3,7 +3,7 @@
 #include "value.h"
 #include "Enums/valuesenum.h"
 
-Value *createValue(int value, ValueName nameOfValue)
+Value *createValue(ValueName nameOfValue, int value)
 {
 	Value *v = (Value*)malloc(sizeof(Value));
 	v->value = value;

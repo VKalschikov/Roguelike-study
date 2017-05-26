@@ -8,7 +8,8 @@ typedef enum
 	Attack = 3,
 	IsFriendly = 4,
 	IsPlayer = 5,
-	IsDynamic = 6
+	IsDynamic = 6,
+	Class = 7
 }ValueName;
 
 static const char *ValueNameStrings[] = {
@@ -17,7 +18,8 @@ static const char *ValueNameStrings[] = {
 	"Attack",
 	"IsFriendly",
 	"IsPlayer",
-	"IsDynamic"
+	"IsDynamic",
+	"Class"
 };
 
 const char * getValueName( int enumVal )

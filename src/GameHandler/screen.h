@@ -26,6 +26,10 @@ int s_update(
 	GameObjectsVector *dynamicGameObjects,
 	GUIObjectsVector *guiObjects);
 
-void s_destroy(Screen *screen);
+void s_destroy(
+	Screen *screen,
+	GameObjectsVector *staticGameObjects,
+	GameObjectsVector *dynamicGameObjects,
+	GUIObjectsVector *guiObjects);
 
 #endif 

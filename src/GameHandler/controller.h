@@ -1,8 +1,7 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "../GameObjects/Vectors/gameobjectsvector.h"
-#include "../GameObjects/Vectors/guiobjectsvector.h"
+#include "../vectors.h"
 #include "screeninfo.h"
 
 typedef struct{
@@ -23,6 +22,11 @@ int c_update(
 	GameObjectsVector *dynamicGameObjects,
 	GUIObjectsVector *guiObjects);
 
-void c_destroy(Controller *controller);
+void c_destroy(
+	Controller *controller,
+	GameObjectsVector *staticGameObjects,
+	GameObjectsVector *dynamicGameObjects,
+	GUIObjectsVector *guiObjects
+);
 
 #endif  

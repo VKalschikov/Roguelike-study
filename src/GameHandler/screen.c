@@ -30,8 +30,12 @@ int s_update(
 	return c_update(screen->controller, staticGameObjects, dynamicGameObjects, guiObjects);
 }
 
-void s_destroy(Screen *screen)
+void s_destroy(
+	Screen *screen,
+	GameObjectsVector *staticGameObjects,
+	GameObjectsVector *dynamicGameObjects,
+	GUIObjectsVector *guiObjects)
 {
-	c_destroy(screen->controller);
+	c_destroy(screen->controller, staticGameObjects, dynamicGameObjects, guiObjects);
 	free(screen);
 }

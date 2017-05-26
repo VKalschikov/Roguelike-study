@@ -2,6 +2,7 @@
 #define GAMEOBJECTSENUM_H
 
 typedef enum{
+	Player = 0,
 	Wall = 1,
 	Floor = 2,
 	Apple = 3,
@@ -10,6 +11,7 @@ typedef enum{
 } GameObjectName;
 
 static const char *GameObjectNameStrings[] = {
+	"Player",
 	"Wall",
 	"Floor",
 	"Apple",
@@ -17,7 +19,7 @@ static const char *GameObjectNameStrings[] = {
 	"BottleOfPison"
 };
 
-const char * getGameObjectName( int enumVal )
+const char * getGameObjectName( GameObjectName enumVal )
 {
   return GameObjectNameStrings[enumVal];
 }

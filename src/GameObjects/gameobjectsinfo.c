@@ -1,8 +1,7 @@
 #include <stdlib.h>
 
 #include "gameobjectsinfo.h"
-#include "Vectors/gameobjectsvector.h"
-#include "Vectors/guiobjectsvector.h"
+#include "../vectors.h"
 
 GameObjectsInfo *createGameObjectsInfo(int numberOfScreens)
 {
@@ -13,9 +12,9 @@ GameObjectsInfo *createGameObjectsInfo(int numberOfScreens)
 	goi->GUIObjects = (GUIObjectsVector**)malloc(sizeof(GUIObjectsVector)*numberOfScreens);
 	for(int i=0;i<numberOfScreens;i++)
 	{
-		goi->staticGameObjects[i] = creatGameObjectsVector();
-		goi->dynamicGameObjects[i] = creatGameObjectsVector();
-		goi->GUIObjects[i] = creatGUIObjectsVector();
+		goi->staticGameObjects[i] = createGameObjectsVector();
+		goi->dynamicGameObjects[i] = createGameObjectsVector();
+		goi->GUIObjects[i] = createGUIObjectsVector();
 	}
 	return goi;
 }

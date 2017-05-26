@@ -19,7 +19,7 @@ int vv_find(ValuesVector *vv, Value *v);
 void vv_increaseMemory(ValuesVector *vv);
 void vv_decreaseMemory(ValuesVector *vv);
 Value *vv_get(ValuesVector *vv, int index);
-Value *vv_getByName(ValuesVector *vv, ValueName name);
+Value *vv_getByEnumName(ValuesVector *vv, ValueName name);
 void vv_destroy(ValuesVector *vv);
 
 #endif

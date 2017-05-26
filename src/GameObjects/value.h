@@ -8,7 +8,7 @@ typedef struct{
 	ValueName nameOfValue;
 } Value;
 
-Value *createValue(int value, ValueName nameOfValue);
+Value *createValue(ValueName nameOfValue, int value);
 void v_destroy(Value *v);
 
 #endif

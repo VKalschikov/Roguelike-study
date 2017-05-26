@@ -2,8 +2,8 @@
 #define GUIOBJECTSENUM_H
 
 typedef enum{
-	Button = 1,
-	String = 2
+	Button = 0,
+	String = 1
 } GUIObjectName;
 
 static const char *GUIObjectNameStrings[] = {

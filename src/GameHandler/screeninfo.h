@@ -17,23 +17,36 @@ typedef struct{
 		GUIObjectsVector *guio,
 		void *uniqueValues);
 
+	void (*destroy)(
+		GameObjectsVector *staticgo,
+		GameObjectsVector *dynamicgo,
+		GUIObjectsVector *guio,	
+		void *uniqueValues
+		);
+
 	void *uniqueValues;
 } ScreenInfo;
 
 ScreenInfo *createScreenInfo(
-	int (*func)(
-		GameObjectsVector *staticgo,
-		GameObjectsVector *dynamicgo,
-		GUIObjectsVector *guio,		
-		void *uniqueValues),
-
 	void (*initialize)(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
 		GUIObjectsVector *guio,
 		void *uniqueValues),
-
-	void *uniqueValues);
+	
+	int (*func)(
+		GameObjectsVector *staticgo,
+		GameObjectsVector *dynamicgo,
+		GUIObjectsVector *guio,		
+		void *uniqueValues),
+	void (*destroy)(
+		GameObjectsVector *staticgo,
+		GameObjectsVector *dynamicgo,
+		GUIObjectsVector *guio,	
+		void *uniqueValues
+		),
+	void *uniqueValues
+);
 
 int si_update(
 	ScreenInfo *si, 
@@ -47,6 +60,10 @@ void si_initialize(
 	GameObjectsVector *dynamicgo,
 	GUIObjectsVector *guio);
 
-void si_destroy(ScreenInfo *si);
+void si_destroy(
+	ScreenInfo *si,
+	GameObjectsVector *staticgo,
+	GameObjectsVector *dynamicgo,
+	GUIObjectsVector *guio);
 
 #endif

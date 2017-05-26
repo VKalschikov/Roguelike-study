@@ -90,7 +90,7 @@ Value *vv_get(ValuesVector *vv, int index)
 	return vv->values[index];
 }
 
-Value *vv_getByName(ValuesVector *vv, ValueName name)
+Value *vv_getByEnumName(ValuesVector *vv, ValueName name)
 {
 	for(int i=0;i<vv->currentAmount;i++)
 	{

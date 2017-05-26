@@ -86,7 +86,9 @@ void gov_decreaseMemory(GameObjectsVector *gov)
 
 GameObject *gov_get(GameObjectsVector *gov, int index)
 {
-	return gov->gameObjects[index];
+	if(index<gov->currentAmount)
+		return gov->gameObjects[index];
+	return 0;
 }
 
 void gov_destroy(GameObjectsVector *gov)

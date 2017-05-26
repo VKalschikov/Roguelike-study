@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "controller.h"
 #include "screeninfo.h"
+#include "../vectors.h"
 
 Controller *createController(ScreenInfo *si)
 {
@@ -27,8 +28,13 @@ int c_update(
 	return si_update(controller->screenInfo, staticGameObjects, dynamicGameObjects, guiObjects);
 }
 
-void c_destroy(Controller *controller)
+void c_destroy(
+	Controller *controller,
+	GameObjectsVector *staticGameObjects,
+	GameObjectsVector *dynamicGameObjects,
+	GUIObjectsVector *guiObjects
+)
 {
-	si_destroy(controller->screenInfo);
+	si_destroy(controller->screenInfo, staticGameObjects, dynamicGameObjects, guiObjects);
 	free (controller);
 }
