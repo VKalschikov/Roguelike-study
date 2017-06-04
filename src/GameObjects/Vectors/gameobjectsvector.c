@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "gameobjectsvector.h"
 #include "../gameobject.h"
@@ -8,6 +9,7 @@
 
 GameObjectsVector *createGameObjectsVector()
 {
+	printf("Create GameObjectsVector\n");
 	GameObjectsVector *gov = (GameObjectsVector*)malloc(sizeof(GameObjectsVector));
 	gov->maxAmount = STD_AMOUNT_OF_GOBJECTS ;
 	gov->currentAmount = 0;
@@ -17,6 +19,7 @@ GameObjectsVector *createGameObjectsVector()
 
 void gov_add(GameObjectsVector *gov, GameObject *go)
 {
+	printf("GOV Add\n");
 	if(gov->currentAmount == gov->maxAmount)
 		gov_increaseMemory(gov);
 	gov->gameObjects[gov->currentAmount] = go;
@@ -25,6 +28,7 @@ void gov_add(GameObjectsVector *gov, GameObject *go)
 
 void gov_removeI(GameObjectsVector *gov, int index)
 {
+	printf("GOV RemoveI\n");
 	if(index<gov->currentAmount)
 	{
 		for(int i=index; i<gov->currentAmount-1; i++)
@@ -40,6 +44,7 @@ void gov_removeI(GameObjectsVector *gov, int index)
 
 void gov_removeV(GameObjectsVector *gov, GameObject *go)
 {
+	printf("GOV RemoveV\n");
 	int index = gov_find(gov, go);
 	if(index!=-1)
 	{
@@ -49,6 +54,7 @@ void gov_removeV(GameObjectsVector *gov, GameObject *go)
 
 int gov_find(GameObjectsVector *gov, GameObject *go)
 {
+	printf("GOV FIND\n");
 	int index = -1;
 	for(int i=0;i<gov->currentAmount;i++)
 	{
@@ -62,7 +68,8 @@ int gov_find(GameObjectsVector *gov, GameObject *go)
 
 void gov_increaseMemory(GameObjectsVector *gov)
 {
-	GameObject **newA = (GameObject**)malloc(sizeof(GameObject*)*gov->maxAmount+STD_AMOUNT_OF_GOBJECTS );
+	printf("GOV IM\n");
+	GameObject **newA = (GameObject**)malloc(sizeof(GameObject*)*(gov->maxAmount+STD_AMOUNT_OF_GOBJECTS ));
 	for(int i=0;i<gov->currentAmount;i++)
 	{
 		newA[i] = gov->gameObjects[i];
@@ -74,7 +81,8 @@ void gov_increaseMemory(GameObjectsVector *gov)
 
 void gov_decreaseMemory(GameObjectsVector *gov)
 {
-	GameObject **newA = (GameObject**)malloc(sizeof(GameObject*)*gov->maxAmount-STD_AMOUNT_OF_GOBJECTS );
+	printf("GOV DM\n");
+	GameObject **newA = (GameObject**)malloc(sizeof(GameObject*)*(gov->maxAmount-STD_AMOUNT_OF_GOBJECTS ));
 	for(int i=0;i<gov->currentAmount;i++)
 	{
 		newA[i] = gov->gameObjects[i];
@@ -86,13 +94,29 @@ void gov_decreaseMemory(GameObjectsVector *gov)
 
 GameObject *gov_get(GameObjectsVector *gov, int index)
 {
+	printf("GOV GET\n");
 	if(index<gov->currentAmount)
+	{
+		printf("%d\n", gov->gameObjects[index]->typeOfObject);
 		return gov->gameObjects[index];
+	}
 	return 0;
+}
+
+int gov_findByType(GameObjectsVector *gov, GameObjectName type)
+{
+	printf("GOV FindBT\n");
+	for(int i=0;i<gov->currentAmount;i++)
+	{
+		if(gov->gameObjects[i]->typeOfObject == type)
+			return i;
+	}
+	return -1;
 }
 
 void gov_destroy(GameObjectsVector *gov)
 {
+	printf("GOV Destroy\n");
 	for(int i=0;i<gov->currentAmount;i++)
 		free(gov->gameObjects[i]);
 	free(gov);

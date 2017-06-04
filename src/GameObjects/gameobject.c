@@ -1,9 +1,10 @@
 #include "gameobject.h"
 #include "Vectors/valuesvector.h"
 #include "value.h"
-#include "Enums/gameobjectsenum.h"
+#include "../enums.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 GameObject *createGameObject(GameObjectName type, int number, ValuesVector *values, int xPos, int yPos)
 {

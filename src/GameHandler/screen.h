@@ -4,8 +4,8 @@
 #include "controller.h"
 #include "screeninfo.h"
 
-#include "../GameObjects/Vectors/gameobjectsvector.h"
-#include "../GameObjects/Vectors/guiobjectsvector.h"
+#include "../vectors.h"
+#include "../enums.h"
 
 typedef struct{
 	int numberOfScreen;
@@ -24,12 +24,14 @@ int s_update(
 	Screen *screen,
 	GameObjectsVector *staticGameObjects,
 	GameObjectsVector *dynamicGameObjects,
-	GUIObjectsVector *guiObjects);
+	GUIObjectsVector *guiObjects,
+	Event gameEvent);
 
 void s_destroy(
 	Screen *screen,
 	GameObjectsVector *staticGameObjects,
 	GameObjectsVector *dynamicGameObjects,
 	GUIObjectsVector *guiObjects);
+
 
 #endif 

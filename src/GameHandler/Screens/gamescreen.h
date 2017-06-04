@@ -10,7 +10,8 @@ int gs_updateFunc(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
 		GUIObjectsVector *guio,		
-		void *uniqueValues
+		void *uniqueValues,
+		Event gameEvent
 		);
 void gs_initializeFunc(
 	GameObjectsVector *staticgo,

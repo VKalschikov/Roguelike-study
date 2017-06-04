@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
 #include "value.h"
-#include "Enums/valuesenum.h"
+#include "../enums.h"
 
 Value *createValue(ValueName nameOfValue, int value)
 {

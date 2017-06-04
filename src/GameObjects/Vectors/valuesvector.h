@@ -2,7 +2,7 @@
 #define VALUESVECTORECTOR_H
 
 #include "../value.h"
-#include "../Enums/valuesenum.h"
+#include "../../enums.h"
 
 typedef struct{
 	int maxAmount;

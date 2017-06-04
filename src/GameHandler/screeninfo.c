@@ -1,8 +1,8 @@
 #include "screeninfo.h"
 #include <stdlib.h>
+#include <stdio.h>
 
-#include "../GameObjects/Vectors/gameobjectsvector.h"
-#include "../GameObjects/Vectors/guiobjectsvector.h" 	
+#include "../vectors.h"	
 
 ScreenInfo *createScreenInfo(
 	void (*initialize)(
@@ -14,7 +14,8 @@ ScreenInfo *createScreenInfo(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
 		GUIObjectsVector *guio,		
-		void *uniqueValues),
+		void *uniqueValues,
+		Event gameEvent),
 	void (*destroy)(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
@@ -24,6 +25,7 @@ ScreenInfo *createScreenInfo(
 	void *uniqueValues
 )
 {
+	printf("Create Screen Info\n");
 	ScreenInfo *si = (ScreenInfo*)malloc(sizeof(ScreenInfo));
 	si->update = func;
 	si->initialize = initialize;
@@ -36,9 +38,11 @@ int si_update(
 	ScreenInfo *si, 
 	GameObjectsVector *staticgo,
 	GameObjectsVector *dynamicgo,
-	GUIObjectsVector *guio)
+	GUIObjectsVector *guio,
+	Event gameEvent)
 {
-	return si->update(staticgo, dynamicgo, guio,  si->uniqueValues);
+	printf("Screen Info Update\n");
+	return si->update(staticgo, dynamicgo, guio,  si->uniqueValues, gameEvent);
 }
 void si_initialize(
 	ScreenInfo *si,
@@ -46,6 +50,7 @@ void si_initialize(
 	GameObjectsVector *dynamicgo,
 	GUIObjectsVector *guio)
 {
+	printf("Screen Info Initialize\n");
 	si->initialize(staticgo, dynamicgo, guio,  si->uniqueValues);
 }
 
@@ -55,6 +60,7 @@ void si_destroy(
 	GameObjectsVector *dynamicgo,
 	GUIObjectsVector *guio)
 {
+	printf("Screen Info Destroy\n");
 	si->destroy(staticgo, dynamicgo, guio, si->uniqueValues);
 	free (si);
 }

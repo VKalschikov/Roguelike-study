@@ -1,8 +1,10 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include "../vectors.h"
 #include "screeninfo.h"
+
+#include "../vectors.h"
+#include "../enums.h"
 
 typedef struct{
 	ScreenInfo *screenInfo;
@@ -20,7 +22,8 @@ int c_update(
 	Controller *controller,
 	GameObjectsVector *staticGameObjects,
 	GameObjectsVector *dynamicGameObjects,
-	GUIObjectsVector *guiObjects);
+	GUIObjectsVector *guiObjects,
+	Event gameEvent);
 
 void c_destroy(
 	Controller *controller,

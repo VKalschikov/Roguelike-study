@@ -1,7 +1,8 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "valuesvector.h"
-#include "../Enums/valuesenum.h"
+#include "../../enums.h"
 #include "../value.h"
 
 #define STD_AMOUNT_OF_VALUES 40
@@ -9,6 +10,7 @@
 
 ValuesVector *createValuesVector()
 {
+	printf("Create ValuesVector\n");
 	ValuesVector *vv = (ValuesVector*)malloc(sizeof(ValuesVector));
 	vv->maxAmount = STD_AMOUNT_OF_VALUES ;
 	vv->currentAmount = 0;
@@ -18,6 +20,7 @@ ValuesVector *createValuesVector()
 
 void vv_add(ValuesVector *vv, Value *go)
 {
+	printf("VV ADD\n");
 	if(vv->currentAmount == vv->maxAmount)
 		vv_increaseMemory(vv);
 	vv->values[vv->currentAmount] = go;
@@ -26,6 +29,7 @@ void vv_add(ValuesVector *vv, Value *go)
 
 void vv_removeI(ValuesVector *vv, int index)
 {
+	printf("VV REMOVE I\n");
 	if(index<vv->currentAmount)
 	{
 		for(int i=index; i<vv->currentAmount-1; i++)
@@ -41,6 +45,7 @@ void vv_removeI(ValuesVector *vv, int index)
 
 void vv_removeV(ValuesVector *vv, Value *go)
 {
+	printf("VV REMOVE V\n");
 	int index = vv_find(vv, go);
 	if(index!=-1)
 	{
@@ -50,6 +55,7 @@ void vv_removeV(ValuesVector *vv, Value *go)
 
 int vv_find(ValuesVector *vv, Value *go)
 {
+	printf("VV FIND\n");
 	int index = -1;
 	for(int i=0;i<vv->currentAmount;i++)
 	{
@@ -63,6 +69,7 @@ int vv_find(ValuesVector *vv, Value *go)
 
 void vv_increaseMemory(ValuesVector *vv)
 {
+	printf("VV IM\n");
 	Value **newA = (Value**)malloc(sizeof(Value*)*vv->maxAmount+STD_AMOUNT_OF_VALUES );
 	for(int i=0;i<vv->currentAmount;i++)
 	{
@@ -75,6 +82,7 @@ void vv_increaseMemory(ValuesVector *vv)
 
 void vv_decreaseMemory(ValuesVector *vv)
 {
+	printf("VV DM\n");
 	Value **newA = (Value**)malloc(sizeof(Value*)*vv->maxAmount-STD_AMOUNT_OF_VALUES );
 	for(int i=0;i<vv->currentAmount;i++)
 	{
@@ -87,11 +95,13 @@ void vv_decreaseMemory(ValuesVector *vv)
 
 Value *vv_get(ValuesVector *vv, int index)
 {
+	printf("VV GET\n");
 	return vv->values[index];
 }
 
 Value *vv_getByEnumName(ValuesVector *vv, ValueName name)
 {
+	printf("VV GET BEN\n");
 	for(int i=0;i<vv->currentAmount;i++)
 	{
 		if(name == vv->values[i]->nameOfValue)
@@ -104,6 +114,7 @@ Value *vv_getByEnumName(ValuesVector *vv, ValueName name)
 
 void vv_destroy(ValuesVector *vv)
 {
+	printf("VV Destroy\n");
 	for(int i=0;i<vv->currentAmount;i++)
 		free(vv->values[i]);
 	free(vv);

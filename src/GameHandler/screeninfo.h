@@ -1,15 +1,15 @@
 #ifndef SCREENINFO_H
 #define SCREENINFO_H
 
-#include "../GameObjects/Vectors/gameobjectsvector.h"
-#include "../GameObjects/Vectors/guiobjectsvector.h"
+#include "../vectors.h"
 
 typedef struct{
 	int (*update)(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
 		GUIObjectsVector *guio,
-		void *uniqueValues);
+		void *uniqueValues,
+		Event gameEvent);
 
 	void (*initialize)(
 		GameObjectsVector *staticgo,
@@ -38,7 +38,8 @@ ScreenInfo *createScreenInfo(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
 		GUIObjectsVector *guio,		
-		void *uniqueValues),
+		void *uniqueValues,
+		Event gameEvent),
 	void (*destroy)(
 		GameObjectsVector *staticgo,
 		GameObjectsVector *dynamicgo,
@@ -52,7 +53,8 @@ int si_update(
 	ScreenInfo *si, 
 	GameObjectsVector *staticgo,
 	GameObjectsVector *dynamicgo,
-	GUIObjectsVector *guio);
+	GUIObjectsVector *guio,
+	Event gameEvent);
 
 void si_initialize(
 	ScreenInfo *si,

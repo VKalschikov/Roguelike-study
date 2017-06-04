@@ -1,7 +1,7 @@
 #ifndef VALUE_H
 #define VALUE_H
 
-#include "Enums/valuesenum.h"
+#include "../enums.h"
 
 typedef struct{
 	int value;
