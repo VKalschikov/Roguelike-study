@@ -12,8 +12,62 @@
 
 #define STANDART_MAP_SIZE 25
 
-void updateGameObject(GameObject *go)
+void updateGameObject(GameObject *go, GameObject *player, Map *map)
 { 
+	if(go->typeOfObject == Rat)
+	{
+		int index = -1;
+		GameObject *out[8] = {
+			map_get(map, go->xPos-1, go->yPos+1),
+			map_get(map, go->xPos, go->yPos+1),
+			map_get(map, go->xPos+1, go->yPos+1),
+			map_get(map, go->xPos-1, go->yPos),
+			map_get(map, go->xPos+1, go->yPos),
+			map_get(map, go->xPos-1, go->yPos-1),
+			map_get(map, go->xPos, go->yPos-1),
+			map_get(map, go->xPos+1, go->yPos-1)
+		};
+		for(int i=0;i<8;i++)
+			if(out[i]->typeOfObject == Player)
+			{
+				index = i;
+				break;
+			}
+
+		if(index!=-1)
+		{
+			go_setValue(
+				out[index],
+				CurrentHealth,
+				go_getValue(out[index], CurrentHealth)-go_getValue(go, Attack)
+				);
+		}else
+		{
+			int nX, nY;
+			int pXPos = player->xPos;
+			int pYPos = player->yPos;
+			if(pXPos<go->xPos)
+				nX = -1;
+			else if(pXPos>go->xPos)
+				nX = 1;
+			else
+				nX = 0;
+
+			if(pYPos<go->yPos)
+				nY = -1;
+			else if(pYPos>go->yPos)
+				nY = 1;
+			else
+				nY = 0;
+			GameObject *got = map_get(map, go->xPos+nX, go->yPos+nY);
+			go->xPos+=nX;
+			go->yPos+=nY;
+			got->xPos -=nX;
+			got->yPos -=nY;
+			map_set(map, go->xPos, go->yPos, go);
+			map_set(map, got->xPos, got->yPos, got);
+		}
+	}
 }
 
 void updateGUIObject(GUIObject *guio, GameObject *player)
@@ -55,13 +109,13 @@ void generateMap(
 			if(i==0 || i== sizeY-1 || j==0 ||j==sizeX-1)
 			{
 				gov_add(staticgo, createWall(j,i));
-				printf("ADD WALL\n");
+				//printf("ADD WALL\n");
 				map_set(map, j, i, gov_get(staticgo, staticgo->currentAmount-1));
 			}
 			else
 			{
 				gov_add(staticgo, createFloor(j,i));
-				printf("ADD FLOOR\n");
+				//printf("ADD FLOOR\n");
 				map_set(map, j, i, gov_get(staticgo, staticgo->currentAmount-1));
 			}
 			printf("j: %d\n",j );
@@ -91,6 +145,10 @@ void generateMap(
 	GameObject *bottleOfPoison = createBottleOfPoison(5, 15 , 50);
 	gov_add(dynamicgo, bottleOfPoison);
 	map_set(map, bottleOfPoison->xPos, bottleOfPoison->yPos, bottleOfPoison);
+
+	GameObject *rat = createRat(20, 20, 40, 5);
+	gov_add(dynamicgo, rat);
+	map_set(map, rat->xPos, rat->yPos, rat);
 
 	for(int i=0;i<guio->currentAmount;i++)
 		updateGUIObject(guiov_get(guio,i),player);
@@ -228,13 +286,30 @@ int gs_updateFunc(
 		map_set(map, player->xPos, player->yPos, player);
 		map_set(map, go->xPos, go->yPos, go);
 		go_setValue(player, CurrentHealth, go_getValue(player, CurrentHealth)-damage);	
+	}else if(map_get(map, newX, newY)->typeOfObject == Rat)
+	{
+		GameObject *rat = map_get(map, newX, newY);
+		go_setValue(rat, CurrentHealth, go_getValue(rat, CurrentHealth)-go_getValue(player, Attack));
+		if(go_getValue(rat, CurrentHealth)<=0)
+		{
+			go_destroy(rat);
+			GameObject *go = createFloor(player->xPos, player->yPos);
+			player->xPos = newX;
+			player->yPos = newY;
+			map_set(map, player->xPos, player->yPos, player);
+			map_set(map, go->xPos, go->yPos, go);
+		}
 	}
 	for(int i=0;i<dynamicgo->currentAmount;i++)
-		updateGameObject(gov_get(dynamicgo, i));
+		updateGameObject(gov_get(dynamicgo, i), player, map);
 
 	for(int i=0; i<guiov->currentAmount;i++)
 		updateGUIObject(guiov_get(guiov, i), player);
-	return 0;
+
+	if(go_getValue(player,CurrentHealth)==0)
+		return -2;
+	else
+		return 0;
 }
 
 void gs_initializeFunc(
@@ -244,6 +319,27 @@ void gs_initializeFunc(
 	void *uniqueValues
 )
 {
+	Map *map = (Map*)uniqueValues;
+	if(map->field !=NULL)
+	{
+		for(int i=0; i<map->sizeY; i++)
+			free(map->field[i]);
+	}
+	GameObject *player;
+	if(gov_findByType(dynamicgo,Player)==-1)
+		player =(void*)NULL;
+	else
+	{
+		player = createPlayer(1, 10, Warrior);
+	}
+
+	staticgo = gov_clear(staticgo);
+	dynamicgo = gov_clear(dynamicgo);
+	guio = guiov_clear(guio);
+
+	if(player !=(void*)NULL)
+		gov_add(dynamicgo, player);
+
 	guiov_add(guio, createGUIObject(HealthString, 501, 10, (char*)malloc(sizeof(char)*50)));
 	guiov_add(guio, createGUIObject(AttackString, 501, 50, (char*)malloc(sizeof(char)*50)));
 	generateMap(
@@ -254,7 +350,6 @@ void gs_initializeFunc(
 		dynamicgo,
 		guio
 	);
-	
 }
 void gs_destroy(
 		GameObjectsVector *staticgo,

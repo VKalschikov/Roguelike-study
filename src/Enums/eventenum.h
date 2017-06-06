@@ -6,7 +6,8 @@ typedef enum{
 	pressKeyUp = 1,
 	pressKeyRight = 2,
 	pressKeyDown = 3,
-	pressKeyLeft = 4
+	pressKeyLeft = 4,
+	pressSpace = 5
 } Event;
 
 #endif

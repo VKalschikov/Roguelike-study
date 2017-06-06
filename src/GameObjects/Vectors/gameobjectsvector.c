@@ -94,7 +94,7 @@ void gov_decreaseMemory(GameObjectsVector *gov)
 
 GameObject *gov_get(GameObjectsVector *gov, int index)
 {
-	printf("GOV GET\n");
+	//printf("GOV GET\n");
 	if(index<gov->currentAmount)
 	{
 		printf("%d\n", gov->gameObjects[index]->typeOfObject);
@@ -120,4 +120,10 @@ void gov_destroy(GameObjectsVector *gov)
 	for(int i=0;i<gov->currentAmount;i++)
 		free(gov->gameObjects[i]);
 	free(gov);
+}
+
+GameObjectsVector *gov_clear(GameObjectsVector *gov)
+{
+	gov_destroy(gov);
+	return createGameObjectsVector();
 }

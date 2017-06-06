@@ -77,3 +77,23 @@ GameObject *createBottleOfPoison(int xPos, int yPos, int damage)
 	vv_add(vv, createValue(Damage, damage));
 	return createGameObject(BottleOfPoison, vv, xPos, yPos);
 }
+
+GameObject *createRat(int xPos, int yPos, int health, int damage)
+{
+	ValuesVector *vv = createValuesVector();
+	vv_add(vv, createValue(CurrentHealth, health));
+	vv_add(vv, createValue(Attack, damage));
+	vv_add(vv, createValue(IsEnemy, 1));
+	return createGameObject(Rat, vv, xPos, yPos);
+}
+
+GameObject *createGameObjectC(GameObject* go)
+{
+	ValuesVector *vv = createValuesVector();
+	for(int i=0;i<go->valuesVector->currentAmount;i++)
+	{
+		Value *v= vv_get(go->valuesVector, i);
+		vv_add(vv, createValue(v->nameOfValue, v->value));
+	}
+	return createGameObject(go->typeOfObject, vv, go->xPos, go->yPos);
+}

@@ -21,5 +21,6 @@ void gov_increaseMemory(GameObjectsVector *gov);
 void gov_decreaseMemory(GameObjectsVector *gov);
 GameObject *gov_get(GameObjectsVector *gov, int index);
 void gov_destroy(GameObjectsVector *gov);
+GameObjectsVector *gov_clear(GameObjectsVector *gov);
 
 #endif

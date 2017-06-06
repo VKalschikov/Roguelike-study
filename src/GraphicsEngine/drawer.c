@@ -12,8 +12,8 @@ void loadTextures(Drawer *drawer)
 {
 	printf("Load Textures\n");
 
-	drawer->textures = (sfTexture**)malloc(sizeof(sfTexture*)*6);
-	drawer->types = (GameObjectName*)malloc(sizeof(GameObjectName)*6);
+	drawer->textures = (sfTexture**)malloc(sizeof(sfTexture*)*7);
+	drawer->types = (GameObjectName*)malloc(sizeof(GameObjectName)*7);
 
 	drawer->textures[0] = sfTexture_createFromFile("assets/floor.png",NULL);
 	drawer->types[0] = Floor;
@@ -27,8 +27,10 @@ void loadTextures(Drawer *drawer)
 	drawer->types[4] = BottleOfPoison;
 	drawer->textures[5] = sfTexture_createFromFile("assets/player.png",NULL);
 	drawer->types[5] = Player;
+	drawer->textures[6] = sfTexture_createFromFile("assets/rat.png",NULL);
+	drawer->types[6] = Rat;
 
-	drawer->numberOfTextures = 6;
+	drawer->numberOfTextures = 7;
 }
 
 Drawer *createDrawer(GameObjectsInfo *goinfo)
@@ -53,6 +55,8 @@ void drawer_draw(Drawer *drawer, sfRenderWindow* window, int currentScreen)
 	sfVector2f pos;
 	sfVector2f scale = {2,2};
 	sfSprite_setScale(sprite, scale);
+	printf("CurrentScreen : %d\n", currentScreen);
+	printf("currentAmount : %d\n", drawer->goinfo->staticGameObjects[currentScreen]->currentAmount);	
 	for(int i=0; i<drawer->goinfo->staticGameObjects[currentScreen]->currentAmount;i++)
 	{
 		go = gov_get(drawer->goinfo->staticGameObjects[currentScreen], i);
@@ -68,6 +72,7 @@ void drawer_draw(Drawer *drawer, sfRenderWindow* window, int currentScreen)
 			sfRenderWindow_drawSprite(window, sprite, NULL);
 		}
 	}
+	printf("Ошибка2\n");
 	for(int i=0; i<drawer->goinfo->dynamicGameObjects[currentScreen]->currentAmount;i++)
 	{
 		go = gov_get(drawer->goinfo->dynamicGameObjects[currentScreen], i);
@@ -85,6 +90,7 @@ void drawer_draw(Drawer *drawer, sfRenderWindow* window, int currentScreen)
 			sfRenderWindow_drawSprite(window, sprite, NULL);
 		}
 	}
+	printf("Ошибка3\n");
 	for(int i=0;i<drawer->goinfo->GUIObjects[currentScreen]->currentAmount;i++)
 	{
 		GUIObject *guio = guiov_get(drawer->goinfo->GUIObjects[currentScreen],i);
@@ -96,12 +102,12 @@ void drawer_draw(Drawer *drawer, sfRenderWindow* window, int currentScreen)
 
 			case HealthString:
 			case AttackString:
+			case GameOverString:
 				sfText_setString(text, guio->object);
 				pos.x = guio->posX;
 				pos.y = guio->posY;
 				sfText_setPosition(text, pos);
 			break;
-
 			default:
 
 			break;

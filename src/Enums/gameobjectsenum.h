@@ -7,7 +7,8 @@ typedef enum{
 	Floor = 2,
 	Apple = 3,
 	Sword = 4,
-	BottleOfPoison = 5
+	BottleOfPoison = 5,
+	Rat = 6
 } GameObjectName;
 
 //const char * getGameObjectName( GameObjectName enumVal );

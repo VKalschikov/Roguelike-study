@@ -94,3 +94,19 @@ void guiov_destroy(GUIObjectsVector *guiov)
 		free(guiov->guiObjects[i]);
 	free(guiov);
 }
+
+GUIObjectsVector *guiov_clear(GUIObjectsVector *guiov)
+{
+	guiov_destroy(guiov);
+	return createGUIObjectsVector();
+}
+
+int guiov_findByType(GUIObjectsVector *guiov, GUIObjectName type)
+{
+	for(int i=0;i<guiov->currentAmount;i++)
+	{
+		if(guiov->guiObjects[i]->typeOfObject==type)
+			return i;
+	}
+	return -1;
+}

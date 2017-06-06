@@ -17,7 +17,7 @@ GameHandler *createGameHandler(int numbersOfScreens, int currentScreen, Screen *
 	return gh;
 }
 
-void gh_gameCycle(GameHandler *gh, GameObjectsInfo *goinfo, Event gameEvent)
+int gh_gameCycle(GameHandler *gh, GameObjectsInfo *goinfo, Event gameEvent)
 {
 	printf("Game Cycle\n");
 	if(gameEvent!=null)
@@ -29,19 +29,22 @@ void gh_gameCycle(GameHandler *gh, GameObjectsInfo *goinfo, Event gameEvent)
 			goinfo->GUIObjects[gh->currentScreen],
 			gameEvent
 		);
-
-		if(screenChanger!=0)
+		if(screenChanger!=0 && screenChanger!=-1000)
 		{
 			if(screenChanger>0)
 			{
-				gh_changeCurrentScreen(gh, screenChanger);
+				gh_changeCurrentScreen(gh, screenChanger-1, goinfo);
 			}
 			else
 			{
-				gh_changeCurrentScreenR(gh, screenChanger*-1, goinfo);
+				gh_changeCurrentScreenR(gh, (screenChanger*-1)-1, goinfo);
 			}			
+		}else if(screenChanger == -1000)
+		{
+			return 0;
 		}
 	}
+	return 1;
 }
 
 void gh_refreshCurrentScreen(GameHandler *gh, GameObjectsInfo *goinfo)
@@ -55,16 +58,17 @@ void gh_refreshCurrentScreen(GameHandler *gh, GameObjectsInfo *goinfo)
 	);
 }
 
-void gh_changeCurrentScreen(GameHandler *gh, int screen)
+void gh_changeCurrentScreen(GameHandler *gh, int screen, GameObjectsInfo *goinfo)
 {
 	printf("ChangeScreen\n");
 	gh->currentScreen = screen;
-}
+	gh_refreshCurrentScreen(gh, goinfo);
+}	
 
 void gh_changeCurrentScreenR(GameHandler *gh, int screen, GameObjectsInfo *goinfo)
 {
 	gh_refreshCurrentScreen(gh, goinfo);
-	gh_changeCurrentScreen(gh, screen);
+	gh_changeCurrentScreen(gh, screen, goinfo);
 }
 
 void gh_destroy(GameHandler *gh)

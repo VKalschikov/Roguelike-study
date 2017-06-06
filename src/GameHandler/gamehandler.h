@@ -13,9 +13,9 @@ typedef struct{
 } GameHandler;
 
 GameHandler *createGameHandler(int numbersOfScreens, int currentScreen, Screen **screens, GameObjectsInfo *goinfo);
-void gh_gameCycle(GameHandler *gh, GameObjectsInfo *goinfo,	Event gameEvent);
+int gh_gameCycle(GameHandler *gh, GameObjectsInfo *goinfo,	Event gameEvent);
 void gh_refreshCurrentScreen(GameHandler *gh, GameObjectsInfo *goinfo);
-void gh_changeCurrentScreen(GameHandler *gh, int screen);
+void gh_changeCurrentScreen(GameHandler *gh, int screen, GameObjectsInfo *goinfo);
 void gh_changeCurrentScreenR(GameHandler *gh, int screen, GameObjectsInfo *goinfo);
 void gh_destroy(GameHandler *gh);
 

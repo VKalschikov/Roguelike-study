@@ -1,9 +1,11 @@
 #include "map.h"
+#include "../../../GameObjects/gameobject.h"
 #include <stdlib.h>
 
 Map *createMap()
 {
 	Map *map = (Map*)malloc(sizeof(Map));
+	map->field = (void*)NULL;
 	return map;
 }
 

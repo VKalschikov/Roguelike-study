@@ -68,15 +68,20 @@ int main(){
             {
             	gameEvent = pressKeyLeft;
             }
+            if(sfKeyboard_isKeyPressed(sfKeySpace))
+            {
+            	gameEvent = pressSpace;
+            }
 		}
 		if(isDestroy)
 			break;
 		if(gameEvent !=null)
 		{
 			sfRenderWindow_clear(window, sfBlack);
-			gh_gameCycle(gHandler, goinfo, gameEvent);
+			if(!gh_gameCycle(gHandler, goinfo, gameEvent))
+				break;
 			drawer_draw(drawer, window, gHandler->currentScreen);
-			sfSleep(sfSeconds(0.2));
+			sfSleep(sfSeconds(0.1));
 		}
 		sfRenderWindow_display(window);
 	}
@@ -87,11 +92,12 @@ int main(){
 void initialize(GameHandler **gHandler, Drawer **drawer, GameObjectsInfo **goinfo)
 {
 	printf("Initialize\n");
-	(*goinfo) = createGameObjectsInfo(1);
+	(*goinfo) = createGameObjectsInfo(2);
 	(*drawer) = createDrawer(*goinfo);
 	int numberOfScreens = (*goinfo)->numberOfScreens;
 
 	Screen **screenes =(Screen**)malloc(sizeof(Screen*)*numberOfScreens);
 	screenes[0] = createGameScreen(0);
-	(*gHandler) = createGameHandler(1, 0, screenes, *goinfo);
+	screenes[1] = createGameOverScreen(1);
+	(*gHandler) = createGameHandler(2, 0, screenes, *goinfo);
 }
