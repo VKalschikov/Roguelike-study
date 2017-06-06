@@ -3,15 +3,16 @@
 const char * getValueName( int enumVal )
 {
 	const char *ValueNameStrings[] = {
-	"Health",
+	"MaxHealth",
 	"Defense",
 	"Attack",
 	"IsFriendly",
 	"IsPlayer",
-	"IsDynamic",
-	"Class",
+	"Class"
 	"IsFloor",
-	"IsWall"
+	"IsWall",
+	"CurrentHealth",
+	"IsEnemy"
 };
   return ValueNameStrings[enumVal];
 }

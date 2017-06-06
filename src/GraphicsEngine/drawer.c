@@ -36,6 +36,7 @@ Drawer *createDrawer(GameObjectsInfo *goinfo)
 	printf("Create Drawer\n");
 	Drawer *drawer = (Drawer*)malloc(sizeof(Drawer));
 	drawer -> goinfo = goinfo;
+	drawer->font = sfFont_createFromFile("assets/Pixeled.ttf");
 	loadTextures(drawer);
 	return drawer;
 }
@@ -45,6 +46,9 @@ void drawer_draw(Drawer *drawer, sfRenderWindow* window, int currentScreen)
 	printf("Draw\n");
 	GameObject *go;
 	sfSprite *sprite = sfSprite_create();
+	sfText *text = sfText_create();
+	sfText_setFont(text, drawer->font);
+	sfText_setCharacterSize(text, 20);
 
 	sfVector2f pos;
 	sfVector2f scale = {2,2};
@@ -71,21 +75,50 @@ void drawer_draw(Drawer *drawer, sfRenderWindow* window, int currentScreen)
 		{
 			if(go->typeOfObject == drawer->types[j])
 			{
-				sfSprite_setTexture(sprite, drawer->textures[j], sfTrue);
+				sfSprite_setTexture(sprite, drawer->textures[0], sfTrue);
 				pos.x = go->xPos*20;
 				pos.y = go->yPos*20;
 				sfSprite_setPosition(sprite, pos);
+				sfRenderWindow_drawSprite(window, sprite, NULL);
+				sfSprite_setTexture(sprite, drawer->textures[j], sfTrue);
 			}
 			sfRenderWindow_drawSprite(window, sprite, NULL);
 		}
 	}
+	for(int i=0;i<drawer->goinfo->GUIObjects[currentScreen]->currentAmount;i++)
+	{
+		GUIObject *guio = guiov_get(drawer->goinfo->GUIObjects[currentScreen],i);
+		switch(guio->typeOfObject)
+		{
+			case Button:
+
+			break;
+
+			case HealthString:
+			case AttackString:
+				sfText_setString(text, guio->object);
+				pos.x = guio->posX;
+				pos.y = guio->posY;
+				sfText_setPosition(text, pos);
+			break;
+
+			default:
+
+			break;
+		}
+		sfRenderWindow_drawText(window, text, NULL);
+	}
+	sfText_destroy(text);
 }
 
 void drawer_destroy(Drawer *drawer)
 {
 	printf("Destroy Drawer\n");
 	for(int i=0;i<drawer->numberOfTextures;i++)
-		free(drawer->textures[i]);
+	{
+		sfTexture_destroy(drawer->textures[i]);
+	}
+	sfFont_destroy(drawer->font);
 	free(drawer->textures);
 	free(drawer->types);
 	free (drawer);

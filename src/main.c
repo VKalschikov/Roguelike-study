@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include <SFML/Graphics.h>
+#include <SFML/System.h>
 
 #include "GraphicsEngine/drawer.h"
 #include "GameHandler/gamehandler.h"
@@ -33,7 +34,9 @@ int main(){
 	window = sfRenderWindow_create(mode, "Roguelike", sfClose, NULL);
 	if(!window)
 		fatal("in main() while create window");
-
+	
+	sfRenderWindow_clear(window, sfBlack);
+	drawer_draw(drawer, window, gHandler->currentScreen);
 	while (sfRenderWindow_isOpen(window))
 	{
 		gameEvent = null;
@@ -68,9 +71,13 @@ int main(){
 		}
 		if(isDestroy)
 			break;
-		sfRenderWindow_clear(window, sfBlack);
-		gh_gameCycle(gHandler, goinfo, gameEvent);
-		drawer_draw(drawer, window, gHandler->currentScreen);
+		if(gameEvent !=null)
+		{
+			sfRenderWindow_clear(window, sfBlack);
+			gh_gameCycle(gHandler, goinfo, gameEvent);
+			drawer_draw(drawer, window, gHandler->currentScreen);
+			sfSleep(sfSeconds(0.2));
+		}
 		sfRenderWindow_display(window);
 	}
 

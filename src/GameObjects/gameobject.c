@@ -6,11 +6,10 @@
 #include <string.h>
 #include <stdio.h>
 
-GameObject *createGameObject(GameObjectName type, int number, ValuesVector *values, int xPos, int yPos)
+GameObject *createGameObject(GameObjectName type, ValuesVector *values, int xPos, int yPos)
 {
 	GameObject *go = (GameObject*)malloc(sizeof(GameObject));
 	go->typeOfObject = type;
-	go->numberOfValues = number;
 	go->valuesVector = values;
 	go->xPos = xPos;
 	go->yPos = yPos;
@@ -40,19 +39,41 @@ void go_destroy(GameObject *go)
 
 GameObject *createWall(int xPos, int yPos)
 {
-	return createGameObject(Wall,0,(ValuesVector*)0,xPos,yPos);
+	return createGameObject(Wall,(ValuesVector*)0,xPos,yPos);
 }
 GameObject *createFloor(int xPos, int yPos)
 {
-	return createGameObject(Floor,0,(ValuesVector*)0,xPos,yPos);
+	return createGameObject(Floor,(ValuesVector*)0,xPos,yPos);
 }
 
 GameObject *createPlayer(int xPos, int yPos, CharacterClass charClass)
 {
 	ValuesVector *vv = createValuesVector();
 	vv_add(vv, createValue(Class, charClass));
-	vv_add(vv, createValue(Health, 100));
+	vv_add(vv, createValue(CurrentHealth, 100));
+	vv_add(vv, createValue(MaxHealth, 120));
 	vv_add(vv, createValue(Attack, 5));
 	vv_add(vv, createValue(IsPlayer, 1));
-	return createGameObject(Player, 4, vv, xPos, yPos);
+	return createGameObject(Player, vv, xPos, yPos);
+}
+
+GameObject *createApple(int xPos, int yPos, int healing)
+{
+	ValuesVector *vv = createValuesVector();
+	vv_add(vv, createValue(Healing, healing));
+	return createGameObject(Apple, vv, xPos, yPos);
+}
+
+GameObject *createSword(int xPos, int yPos, int addingDamage)
+{
+	ValuesVector *vv = createValuesVector();
+	vv_add(vv, createValue(AddingDamage, addingDamage));
+	return createGameObject(Sword, vv, xPos, yPos);
+}
+
+GameObject *createBottleOfPoison(int xPos, int yPos, int damage)
+{
+	ValuesVector *vv = createValuesVector();
+	vv_add(vv, createValue(Damage, damage));
+	return createGameObject(BottleOfPoison, vv, xPos, yPos);
 }

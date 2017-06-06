@@ -6,6 +6,6 @@ typedef enum{
 	Mage = 1
 } CharacterClass;
 
-//const char *getCharacterClass(CharacterClass enumVal );
+const char *getCharacterClass(CharacterClass enumVal );
 
 #endif

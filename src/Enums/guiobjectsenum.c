@@ -4,7 +4,7 @@ const char * getGUIObjectName( int enumVal )
 {
 	const char *GUIObjectNameStrings[] = {
 	"Button",
-	"String"
+	"HealthString"
 	};
   return GUIObjectNameStrings[enumVal];
 }

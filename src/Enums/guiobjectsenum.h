@@ -3,8 +3,9 @@
 
 typedef enum{
 	Button = 0,
-	String = 1
+	HealthString = 1,
+	AttackString = 2
 } GUIObjectName;
 
-//const char * getGUIObjectName( int enumVal );
+const char * getGUIObjectName( int enumVal );
 #endif

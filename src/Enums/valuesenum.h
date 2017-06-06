@@ -3,16 +3,20 @@
 
 typedef enum
 {
-	Health = 0,
+	MaxHealth = 0,
 	Defense = 1,
 	Attack = 3,
 	IsFriendly = 4,
 	IsPlayer = 5,
-	IsDynamic = 6,
-	Class = 7,
-	IsFloor = 8,
-	IsWall = 9
+	Class = 6,
+	IsFloor = 7,
+	IsWall = 8,
+	CurrentHealth = 9,
+	IsEnemy = 10,
+	Healing = 11,
+	AddingDamage = 12,
+	Damage = 13
 }ValueName;
 
-//const char * getValueName( int enumVal );
+const char * getValueName( int enumVal );
 #endif

@@ -11,6 +11,7 @@ typedef struct {
 	sfTexture **textures;
 	GameObjectName *types;
 	int numberOfTextures;
+	sfFont* font;
 }Drawer;
 
 Drawer *createDrawer(GameObjectsInfo *goinfo);
